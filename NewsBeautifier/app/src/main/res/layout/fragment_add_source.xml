@@ -6,7 +6,16 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/source_name"
         android:layout_gravity="center_horizontal"
-        android:hint="Source Name" />
+        android:hint="Source Name"
+        android:layout_margin="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Installer"
+        android:id="@+id/new_source_button"
+        android:layout_gravity="center_horizontal"
+        android:onClick="InstallNewSource()"/>
 </LinearLayout>

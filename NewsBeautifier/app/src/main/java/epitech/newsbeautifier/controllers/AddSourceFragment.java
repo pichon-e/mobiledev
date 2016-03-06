@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.List;
@@ -18,9 +20,6 @@ import epitech.newsbeautifier.models.Source;
 public class AddSourceFragment extends Fragment {
     View myFragmentView;
 
-    static ListView source_listview;
-    static List<Source> source_list;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +31,17 @@ public class AddSourceFragment extends Fragment {
 
         myFragmentView = inflater.inflate(R.layout.fragment_add_source, container, false);
 
+        Button installNewSource = (Button) myFragmentView.findViewById(R.id.new_source_button);
+        final EditText sourceName = (EditText) myFragmentView.findViewById(R.id.source_name);
+        installNewSource.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sourceName.getText().length() > 0) {
+
+                }
+            }
+        });
+
         return myFragmentView;
     }
 
@@ -41,4 +51,5 @@ public class AddSourceFragment extends Fragment {
     {
         super.onResume();
     }
+
 }

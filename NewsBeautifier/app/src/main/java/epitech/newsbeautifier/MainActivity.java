@@ -17,13 +17,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import epitech.newsbeautifier.controllers.AddSourceFragment;
+import epitech.newsbeautifier.controllers.FavoritesFragment;
 import epitech.newsbeautifier.controllers.HomePageFragment;
+import epitech.newsbeautifier.models.User;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private AddSourceFragment   addSourceFragment;
     private HomePageFragment    homePageFragment;
+    private FavoritesFragment   favoritesFragment;
     private DrawerLayout        drawer;
 
     @Override
@@ -35,14 +38,15 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Consts.setFab((FloatingActionButton) findViewById(R.id.fab));
+        Consts.getFab().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "The news has been added in your favorites", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+        Consts.getFab().setVisibility(View.GONE);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity
 
         homePageFragment = new HomePageFragment();
         addSourceFragment = new AddSourceFragment();
+        favoritesFragment = new FavoritesFragment();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (savedInstanceState == null) {
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity
             onNavigationItemSelected(item);
         }
         navigationView.setNavigationItemSelectedListener(this);
-
+        Consts.setActivity(this);
     }
 
     @Override
@@ -102,14 +107,14 @@ public class MainActivity extends AppCompatActivity
 
         Fragment fragment = null;
         switch (id) {
-            case R.id.nav_camera:
+            case R.id.nav_sources:
                 fragment = homePageFragment;
                 break;
-            case R.id.nav_gallery:
+            case R.id.nav_favorites:
+                fragment = favoritesFragment;
+                break;
+            case R.id.nav_add_source:
                 fragment = addSourceFragment;
-                break;
-            default:
-                fragment = homePageFragment;
                 break;
         }
 
@@ -117,12 +122,12 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawers();
 
         // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        Consts.setFragmentManager(getSupportFragmentManager());
+        Consts.getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         // Highlight the selected item, update the title, and close the drawer
         // Highlight the selected item has been done by NavigationView
-        // menuItem.setChecked(true);
+        item.setChecked(true);
 
         return true;
     }

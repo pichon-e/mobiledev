@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epitech.newsbeautifier.R;
+import epitech.newsbeautifier.adapters.SourceItemAdapter;
 import epitech.newsbeautifier.models.Source;
 import epitech.newsbeautifier.models.User;
 
@@ -21,6 +22,7 @@ public class HomePageFragment extends Fragment {
 
     static ListView             source_listview;
     static List<Source>         source_list;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,6 @@ public class HomePageFragment extends Fragment {
         return myFragmentView;
     }
 
-    // Reset radiator opened and its gravity
     @Override
     public void onResume()
     {
@@ -45,13 +46,17 @@ public class HomePageFragment extends Fragment {
     }
 
     public void update() {
-        // creation of radiators list and adapter element
         List<Source> sources = User.getInstance().getSources();
-        source_listview = (ListView) myFragmentView.findViewById(R.id.fragment_source_list);
+        source_listview = (ListView) myFragmentView.findViewById(R.id.source_listview);
         source_list = new ArrayList<Source>();
 
-        // Adapter setting
-//        source_listview.setAdapter(new SourceItemAdapter(getActivity(), source_list));
+        for (int i = 0; i < 10; i++) {
+            Source newSource = new Source();
+            newSource.setName("Source " + i);
+            source_list.add(newSource);
+        }
+
+        source_listview.setAdapter(new SourceItemAdapter(getActivity(), source_list));
     }
 
 }
